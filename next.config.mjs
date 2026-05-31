@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Static export — frontend only, no backend runtime required (yet).
   output: 'export',
+  basePath: '/portfolio2',
+  assetPrefix: '/portfolio2/',
   images: {
     unoptimized: true,
   },
