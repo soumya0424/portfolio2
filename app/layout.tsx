@@ -13,14 +13,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <link
           rel="preload"
-          href="/fonts/JetBrainsMono-Regular.woff2"
+          href="/portfolio2/fonts/JetBrainsMono-Regular.woff2"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/Geist-Regular.woff2"
+          href="/portfolio2/fonts/Geist-Regular.woff2"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
