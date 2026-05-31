@@ -1,0 +1,348 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================================================
+   Self-hosted fonts
+   - Geist for UI / headings / body (fallback SF Pro Display, system-ui)
+   - JetBrains Mono for terminal / code / ASCII art
+   ========================================================================= */
+
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/Geist-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/Geist-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/Geist-SemiBold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/Geist-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/JetBrainsMono-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/JetBrainsMono-Bold.woff2') format('woff2');
+}
+
+/* =========================================================================
+   Design tokens (CSS custom properties). Dark-mode only.
+   The single accent is the deep cobalt blue derived from the supplied
+   palette. The reference loader's cyan is intentionally NOT used as a brand
+   color (the spec forbids cyan); only the loader motion is preserved.
+   ========================================================================= */
+
+:root {
+  /* Backgrounds: near-black */
+  --bg-base: #050505;
+  --bg-elevated: #0a0a0a;
+  --bg-surface: #0e0e12;
+
+  /* Text */
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-tertiary: #6b7280;
+
+  /* Bright blue accent scale — the single brand color.
+     Brightened toward the index.html reference (the loader's light blue) so
+     the accent reads vivid on near-black instead of a dark navy. */
+  --accent-950: #0a1a3d;
+  --accent-900: #143a86;
+  --accent: #2f6fed;
+  --accent-hover: #5b90ff;
+  --accent-text: #8fbcff;
+  --accent-glow: rgba(80, 150, 255, 0.5);
+
+  /* Feedback (used sparingly) */
+  --danger: #ff6b6b;
+  --success: #4ade80;
+
+  /* Typography */
+  --font-ui: 'Geist', 'SF Pro Display', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --text-display: clamp(3.5rem, 6vw, 5rem);
+  --text-h1: clamp(2.5rem, 4vw, 3.5rem);
+  --text-h2: clamp(2rem, 3vw, 2.5rem);
+  --text-h3: 1.5rem;
+  --text-body: 1rem;
+  --text-small: 0.875rem;
+  --text-mono: 0.9375rem;
+
+  --leading-tight: 1.1;
+  --leading-body: 1.6;
+
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+
+  /* Elevation */
+  --shadow-1: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-2: 0 8px 32px rgba(0, 0, 0, 0.45);
+  --shadow-3: 0 16px 48px rgba(0, 0, 0, 0.55);
+
+  /* Glassmorphism */
+  --glass-bg: color-mix(in srgb, var(--bg-surface) 70%, transparent);
+  --glass-border: color-mix(in srgb, #ffffff 8%, transparent);
+  --glass-blur: 16px;
+  --glass-saturate: 120%;
+
+  /* Motion */
+  --motion-fast: 160ms;
+  --motion-base: 320ms;
+  --motion-slow: 760ms;
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+
+  color-scheme: dark;
+}
+
+/* =========================================================================
+   Base layer
+   ========================================================================= */
+
+@layer base {
+  * {
+    border-color: var(--glass-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    position: relative;
+    min-height: 100dvh;
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    font-family: var(--font-ui);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3 {
+    line-height: var(--leading-tight);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  code,
+  pre,
+  kbd,
+  samp {
+    font-family: var(--font-mono);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent-text);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--accent) 55%, transparent);
+    color: #fff;
+  }
+}
+
+/* =========================================================================
+   Background texture + ambient gradients
+   ========================================================================= */
+
+@layer components {
+  .bg-noise,
+  .bg-ambient {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .bg-noise {
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+  }
+
+  .bg-ambient {
+    background:
+      radial-gradient(
+        60% 50% at 20% 15%,
+        color-mix(in srgb, var(--accent-900) 55%, transparent) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        50% 45% at 85% 25%,
+        color-mix(in srgb, var(--accent-950) 70%, transparent) 0%,
+        transparent 55%
+      ),
+      radial-gradient(
+        70% 60% at 50% 100%,
+        color-mix(in srgb, var(--accent) 18%, transparent) 0%,
+        transparent 65%
+      );
+    background-color: var(--bg-base);
+    animation: ambient-drift 24s ease-in-out infinite alternate;
+  }
+
+  /* Glassmorphism panel primitive */
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-2);
+  }
+
+  /* Liquid-glass interactive surface (buttons / cards) */
+  .glass-interactive {
+    position: relative;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    transition:
+      border-color var(--motion-base) var(--ease-standard),
+      box-shadow var(--motion-base) var(--ease-standard),
+      transform var(--motion-base) var(--ease-standard);
+  }
+  .glass-interactive:hover {
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+    box-shadow: var(--shadow-2), 0 0 24px var(--accent-glow);
+  }
+}
+
+/* =========================================================================
+   Matrix Dots Loader (derived from supplied index.html)
+   Same 2x4 clockwise pulse motion; recolored to the deep cobalt accent.
+   ========================================================================= */
+
+.dots-loader {
+  display: grid;
+  grid-template-columns: repeat(2, 10px);
+  grid-template-rows: repeat(4, 10px);
+  gap: 10px;
+}
+.dots-loader .dot {
+  width: 10px;
+  height: 10px;
+  background: var(--accent-text);
+  border-radius: 2px;
+  opacity: 0.15;
+  box-shadow: 0 0 8px var(--accent-glow);
+  animation: dot-pulse 1.2s linear infinite;
+}
+.dots-loader .dot:nth-child(1) { animation-delay: 0s; }
+.dots-loader .dot:nth-child(2) { animation-delay: 0.15s; }
+.dots-loader .dot:nth-child(3) { animation-delay: 1.05s; }
+.dots-loader .dot:nth-child(4) { animation-delay: 0.3s; }
+.dots-loader .dot:nth-child(5) { animation-delay: 0.9s; }
+.dots-loader .dot:nth-child(6) { animation-delay: 0.45s; }
+.dots-loader .dot:nth-child(7) { animation-delay: 0.75s; }
+.dots-loader .dot:nth-child(8) { animation-delay: 0.6s; }
+
+@keyframes dot-pulse {
+  0% { opacity: 1; }
+  100% { opacity: 0.15; }
+}
+
+/* Blinking terminal cursor */
+.cursor-blink {
+  display: inline-block;
+  width: 0.55ch;
+  height: 1.1em;
+  vertical-align: text-bottom;
+  background: var(--accent-text);
+  margin-left: 2px;
+  animation: cursor-blink 1.05s steps(1) infinite;
+}
+@keyframes cursor-blink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+@keyframes ambient-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate3d(0, -2%, 0) scale(1.05);
+    opacity: 1;
+  }
+}
+
+/* =========================================================================
+   Reduced motion
+   ========================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .bg-ambient {
+    animation: none;
+  }
+}
